@@ -1,26 +1,36 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <HeaderComponents v-if="isAuthenticated"/>
+  <SidebarComponents v-if="isAuthenticated"/>
+  <router-view/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+//import HeaderComponents from './components/includes/HeaderComponents.vue';
+import SidebarComponents from './components/includes/SidebarComponents.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    //HeaderComponents,
+    SidebarComponents
+  },
+  data(){
+    return {
+      isAuthenticated: false
+    };
+  },
+  created(){
+    this.checkAuthStatus();
+  },
+  methods: {
+    checkAuthStatus(){
+      this.isAuthenticated = !!localStorage.getItem('token');
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
